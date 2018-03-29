@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MongoDB.Repository.Example
 {
@@ -14,9 +15,16 @@ namespace MongoDB.Repository.Example
         }
 
         [HttpGet("get")]
-        public IEnumerable<string> Get()
+        public IEnumerable<CategoryViewModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            var categories = _categoryRepository.AsQueryable()
+                .Select(x => new CategoryViewModel
+                {
+                    Name = x.Name,
+                    Status = x.Status,
+                });
+
+            return categories;
         }
 
         [HttpPost("add")]

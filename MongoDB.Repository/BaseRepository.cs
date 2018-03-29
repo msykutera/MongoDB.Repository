@@ -12,9 +12,9 @@ namespace MongoDB.Repository
     public class BaseRepository<T, TKey> : IRepository<T, TKey>
         where T : IEntity<TKey>
     {
-        public BaseRepository(IUnitOfWork unitOfWork)
+        public BaseRepository(IMongoDbContext context)
         {
-            Collection = unitOfWork.Database.GetCollection<T>(GetCollectionName());
+            Collection = context.Database.GetCollection<T>(GetCollectionName());
         }
 
         public IMongoCollection<T> Collection { get; }
@@ -37,7 +37,6 @@ namespace MongoDB.Repository
 
         public virtual long Count()
         {
-            //var filter = Builders<T>.Filter.Empty;
             return Collection.Count(x => true);
         }
 
@@ -165,7 +164,7 @@ namespace MongoDB.Repository
     public class BaseRepository<T> : BaseRepository<T, string>, IRepository<T>
         where T : IEntity<string>
     {
-        public BaseRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public BaseRepository(IMongoDbContext context) : base(context)
         {
         }
     }

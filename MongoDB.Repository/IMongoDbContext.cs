@@ -2,9 +2,8 @@
 
 namespace MongoDB.Repository
 {
-    public interface IUnitOfWork
+    public interface IMongoDbContext
     {
-        IMongoClient Client { get; }
         IMongoDatabase Database { get; }
     }
 }

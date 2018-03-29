@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
 
 namespace MongoDB.Repository.Example
 {
@@ -15,10 +14,8 @@ namespace MongoDB.Repository.Example
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            var mongoUrl = "mongodb://localhost:27017/example";
-            services.AddSingleton(x => new MongoUrl(mongoUrl));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton(x => Configuration.GetSection("MongoDb").Get<MongoDbSettings>());
+            services.AddScoped<IMongoDbContext, MongoDbContext>();
             services.AddScoped<IRepository<Category>, BaseRepository<Category>>();
         }
 
