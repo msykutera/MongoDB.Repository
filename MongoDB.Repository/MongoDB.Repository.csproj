@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>MongoDB.Driver.Repository</PackageId>
+    <Authors>Michał Sykutera</Authors>
+    <Company>Michał Sykutera</Company>
+    <Product>MongoDB.Driver.Repository</Product>
+    <RepositoryUrl>https://github.com/msykutera/MongoDB.Repository</RepositoryUrl>
+    <Description>Repository pattern based on MongoDB.Driver</Description>
   </PropertyGroup>
 
   <ItemGroup>
