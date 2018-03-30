@@ -7,17 +7,17 @@ namespace MongoDB.Repository.Example
     [Route("api/[controller]")]
     public class CategoriesController : Controller
     {
-        private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<Category> _repository;
 
-        public CategoriesController(IRepository<Category> categoryRepository)
+        public CategoriesController(IRepository<Category> repository)
         {
-            _categoryRepository = categoryRepository;
+            _repository = repository;
         }
 
         [HttpGet("getAll")]
         public IEnumerable<CategoryViewModel> Get()
         {
-            var categories = _categoryRepository.AsQueryable()
+            var categories = _repository.AsQueryable()
                 .Select(x => new CategoryViewModel
                 {
                     Id = x.Id,
@@ -31,7 +31,7 @@ namespace MongoDB.Repository.Example
         [HttpGet("get/{id}")]
         public CategoryViewModel Get(string id)
         {
-            var category = _categoryRepository.GetById(id);
+            var category = _repository.GetById(id);
             var model = new CategoryViewModel
             {
                 Id = category.Id,
@@ -49,13 +49,13 @@ namespace MongoDB.Repository.Example
                 Name = model.Name,
                 Status = model.Status,
             };
-            _categoryRepository.Add(category);
+            _repository.Add(category);
         }
 
         [HttpDelete("delete/{id}")]
         public void Delete(string id)
         {
-            _categoryRepository.Delete(id);
+            _repository.Delete(id);
         }
 
         [HttpPut("update")]
@@ -67,7 +67,7 @@ namespace MongoDB.Repository.Example
                 Name = model.Name,
                 Status = model.Status,
             };
-            _categoryRepository.Update(category);
+            _repository.Update(category);
         }
     }
 }
